@@ -44,7 +44,7 @@ const NavigationBar = () => {
     <motion.div
       animate={isExpanded ? "expanded" : "nonExpanded"}
       variants={variants}
-      className={`py-12 flex flex-col border border-r-1 w-1/5 h-screen relative ${
+      className={`py-12 flex flex-col border border-r-1 w-1/5 h-full relative ${
         isExpanded ? "px-10" : "px-4"
       }`}
     >
