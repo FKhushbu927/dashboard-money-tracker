@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import logoImg from "../assets/Logo.png";
 import rightArrow from "../assets/icons/rightArrow.svg";
+import { motion } from "framer-motion";
 import {
   LayoutDashboard,
   Clock4,
@@ -31,15 +32,25 @@ const NavLinks = [
   },
 ];
 
+const variants = {
+    expanded: {width: "20%"},
+    nonExpanded: {width: "5%"}
+}
+
 const NavigationBar = () => {
   const [activeNav, setActiveNav] = useState(0);
+  const[isExpanded, setIsExpanded] = useState(true);
   return (
-    <div className="px-10 py-12 flex flex-col border border-r-1 w-1/5 h-screen relative">
+    <motion.div 
+    animate = {isExpanded ? "expanded" : "nonExpanded"}
+    variants={variants}
+    
+    className={`py-12 flex flex-col border border-r-1 w-1/5 h-screen relative ${isExpanded ? "px-10" : "px-4"}`}>
       <div className="logo-div flex space-x-3  items-center">
         <img src={logoImg} alt="" />
-        <span>Money Tracker</span>
+        <span className={isExpanded ? "block" : "hidden"}>Money Tracker</span>
       </div>
-      <div className="w-5 h-5 bg-[#FF8C8C] rounded-full -right-[10.5px] top-14 absolute flex items-center justify-center">
+      <div onClick={() => setIsExpanded(!isExpanded)} className="w-5 h-5 bg-[#FF8C8C] rounded-full -right-[10.5px] top-14 absolute flex items-center justify-center">
            <img className="w-[5px]" src={rightArrow} alt="" />
       </div>
 
@@ -55,11 +66,11 @@ const NavigationBar = () => {
             onClick={() => setActiveNav(index)}
           >
             <item.icon />
-            <span>{item?.name}</span>
+            <span className={isExpanded ? "block" : "hidden"}>{item?.name}</span>
           </div>
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 
